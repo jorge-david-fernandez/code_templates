@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- 
+
+Company:    Ultimate Sofware Corp.
+Author:     Adrian Serrano
+Client:     Lazy Dog Restaurants, LLC
+Filename:   LAZYEmpDebitTipConsent.xml
+CP Request: SR-2019-00245269
+Date:       9/11/2019
+Purpose:    Mapping File for table U_LAZ1001_EmpDebitTipConsent
+
+Last Modified: 
+
+--> 
+
+<MappingCollection>
+	<DAL AssemblyName="UltimateSoftware.DataAccessLayer" ClassName="UltimateSoftware.DataAccessLayer.CompanyDAL" />
+	<Validator AssemblyName="UltimateSoftware.Customs.LAZ1001.SR00245269" ClassName="UltimateSoftware.Customs.LAZ1001.BusinessRules.EmpDebitTipConsentValidator" />
+  <Tables>
+    <Table Name="EmpComp" Insert="Insert" Update="Update" Delete="Delete"/>
+  </Tables>
+  <Mapping ClassName="EmpComp">
+      <EntryKey PhysicalName="EmpComp.EecCoID" LogicalName="CoID" />
+      <EntryKey PhysicalName="EmpComp.EecEEID" LogicalName="EEID" />
+
+    <!--<Entry PhysicalName="EmpComp.EecEEID" LogicalName="EEID" />
+    <Entry PhysicalName="EmpComp.EecCoID" LogicalName="CoID" />-->
+    <Entry PhysicalName="EmpComp.EecUDField21" LogicalName="UDField21" />
+    <Entry PhysicalName="EmpComp.EecUDField22" LogicalName="UDField22" />
+    <Entry PhysicalName="EmpComp.EecUDField05" LogicalName="UDField05" />
+    <Entry PhysicalName="EmpComp.EecUDField06" LogicalName="UDField06" />
+    <Entry PhysicalName="EmpComp.EecUDField24" LogicalName="UDField24" />
+    <Entry PhysicalName="EmpComp.EecUDField23" LogicalName="UDField23" />
+
+
+  </Mapping>
+</MappingCollection>

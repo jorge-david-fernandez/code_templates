@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{01FF2DEB-4481-4BD7-A93A-35595BDDBB59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UltimateSoftware.Customs.ONB.LAZ1001_Integration</RootNamespace>
+    <AssemblyName>UltimateSoftware.Customs.ONB.LAZ1001_Integration</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UltimateSoftware.Common, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateSoftware.DataAccessLayer, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.DataAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateSoftware.Diagnostics.Common, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.Diagnostics.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateSoftware.ObjectModel, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateSoftware.ObjectModel.Base, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.ObjectModel.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateSoftware.ObjectModel.Common, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.ObjectModel.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateSoftware.ObjectModel.Facade, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.ObjectModel.Facade.dll</HintPath>
+    </Reference>
+    <Reference Include="UltimateSoftware.Security, Version=10.8.2.0, Culture=neutral, PublicKeyToken=e946295fdb1a818d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Distrib\UltimateSoftware.Security.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomDataDA.cs" />
+    <Compile Include="CustomDataFacade.cs" />
+    <Compile Include="CustomDataValidator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

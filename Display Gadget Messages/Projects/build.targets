@@ -1,0 +1,51 @@
+<Project ToolsVersion="4.0"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    DefaultTargets="all">
+
+    <PropertyGroup>
+        <ProjectPath>$(MSBuildProjectDirectory)</ProjectPath>
+        <OutputPath Condition="'$(OutputPath)' == ''">$(ProjectPath)bin\</OutputPath>
+    </PropertyGroup>
+
+    <!--
+        Builds every .sln in the directory and packages them in bin/
+
+        Specifically, only the compiled assembly is packaged. That means referenced
+        assemblies are not packaged in bin/
+    -->
+    <Target Name="all" DependsOnTargets="Build" ></Target>
+
+    <Target Name="CleanArtifacts">
+        <Message Text="Removing old artifacts in $(OutputPath)."/>
+        <RemoveDir Directories="$(OutputPath)" />
+    </Target>
+
+    <Target Name="Build" DependsOnTargets="Validate;CleanArtifacts">
+        <ItemGroup>
+            <SolutionFiles Include="$(ProjectPath)\**\*.sln"/>
+        </ItemGroup>
+
+        <Message Text="Building UltiPro Net projects in $(ProjectPath)"/>
+
+        <!-- Include the PreBuild.target in order to remove references from the build  -->
+        <MSBuild Projects="@(SolutionFiles)"
+            Properties="OutputPath=$(OutputPath);CustomBeforeMicrosoftCommonTargets=$(ProjectPath)\PreBuild.targets;GenerateSerializationAssemblies=Off"
+            Targets="Clean;Build"/>
+    </Target>
+
+    <!-- Validations -->
+    <Target Name="Validate" DependsOnTargets="ValidateNugetPackages"></Target>
+
+    <Target Name="ValidateNugetPackages">
+        <ItemGroup>
+            <NugetFiles Include="$(ProjectPath)\**\packages.config"/>
+        </ItemGroup>
+
+        <Message Text="Validating that there are no nuget packages in $(ProjectPath)."/>
+
+        <Error
+            Condition="'@(NugetFiles)' != ''"
+            Text="Illegal package.config file(s) found in $(ProjectPath). Nuget files are not allowed for web projects:%0a@(NugetFiles, '%0a')'" />
+    </Target>
+
+ </Project>

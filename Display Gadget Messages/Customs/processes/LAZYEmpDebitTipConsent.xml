@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- 
+
+Company:    Ultimate Sofware Corp.
+Author:     Adrian Serrano
+Client:     Lazy Dog Restaurants, LLC
+Filename:   UltiproNet\Customs\processes\LAZYEmpDebitTipConsent.xml
+CP Request: SR-2019-00245269
+Date:       9/11/2019
+Purpose:    Process File for table U_LAZ1001_EmpDebitTipConsent
+
+Last Modified: 
+
+-->
+
+<Process xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ProcessName="LAZYEmpDebitTipConsent">
+  <SessionData>
+    <JobDefCode>U_LAZ1001Consent</JobDefCode>
+    <CancelWebpage>EmpDebitTipConsentDetail.aspx</CancelWebpage>
+    <FinishWebpage>EmpDebitTipConsentDetail.aspx</FinishWebpage>
+    <InitiatedForNameParts />
+  </SessionData>
+
+  <Pages>
+
+    <Page Name="EmpDebitTipConsentDetail.aspx">
+      <Order>1</Order>
+      <Header>L_LAZY_EmpDebitTipConsentDetailHeader</Header>
+      <IsDetailPage>true</IsDetailPage>
+      <View ID="FormView1">
+        <Control Name="csDebitCard">
+          <Order>0</Order>
+          <Object>EmpDebitTipConsentDataItem</Object>
+          <Property>UDField21</Property>
+          <Alias>L_LAZY_DebitCard</Alias>
+          <LookupTable>YESNO</LookupTable>
+          <IsRequired>true</IsRequired>
+          <DisplayMethod>Description</DisplayMethod>
+          <DisplayInChgDetail>Y</DisplayInChgDetail>
+        </Control>
+        <Control Name="csTipCard">
+          <Order>1</Order>
+          <Object>EmpDebitTipConsentDataItem</Object>
+          <Property>UDField22</Property>
+          <Alias>L_LAZY_TipCard</Alias>
+          <IsRequired>true</IsRequired>
+          <LookupTable>YESNO</LookupTable>
+          <DisplayMethod>Description</DisplayMethod>
+          <DisplayInChgDetail>Y</DisplayInChgDetail>
+        </Control>
+        <Control Name="cdlApproved">
+          <Order>2</Order>
+          <Object>EmpDebitTipConsentDataItem</Object>
+          <Property>UDField05</Property>
+          <Alias>L_LAZY_Approved</Alias>
+          <DisplayInChgDetail>N</DisplayInChgDetail>
+        </Control>
+        <Control Name="llbDateApproved">
+          <Order>3</Order>
+          <Object>EmpDebitTipConsentDataItem</Object>
+          <Property>UDField06</Property>
+          <Alias>L_LAZY_DateApproved</Alias>
+          <DisplayInChgDetail>N</DisplayInChgDetail>
+          <Style>DATE</Style>
+        </Control>
+        <Control Name="csMealWaiver1">
+          <Order>4</Order>
+          <Object>EmpDebitTipConsentDataItem</Object>
+          <Property>UDField24</Property>
+          <Alias>L_LAZ1001_MealWaiver1</Alias>
+          <IsRequired>true</IsRequired>
+          <LookupTable>YESNO</LookupTable>
+          <DisplayMethod>Description</DisplayMethod>
+          <DisplayInChgDetail>Y</DisplayInChgDetail>
+        </Control>
+        <Control Name="csMealWaiver2">
+          <Order>5</Order>
+          <Object>EmpDebitTipConsentDataItem</Object>
+          <Property>UDField23</Property>
+          <Alias>L_LAZ1001_MealWaiver2</Alias>
+          <IsRequired>true</IsRequired>
+          <LookupTable>YESNO</LookupTable>
+          <DisplayMethod>Description</DisplayMethod>
+          <DisplayInChgDetail>Y</DisplayInChgDetail>
+        </Control>
+      </View>
+    </Page>
+  </Pages>
+
+  <!--
+Other property examples that can be used:
+                    Styles that can be used: MONEY  MONEY4  PRCNT  PRCNT4  DATE  INT  RATE2  RATE4 ZIP  WHOLE  PHONE  SSN  NATID  LARGE  
+					
+                    <MaxLength>20</MaxLength>
+                    <UserControlID>uc_eeESSContactsDetailChg</UserControlID>
+                    <DisplayMethod>Description</DisplayMethod>
+                    <DisplayMethod>Code</DisplayMethod>
+                    <DisplayMethod>CodeDashDescription</DisplayMethod>
+                    <DisplayInChgDetail>N</DisplayInChgDetail>
+                    <Width>14</Width>
+                    <LookupTable>INTSTATE</LookupTable>
+                    <Country>CAN</Country>
+                    <Country>USA</Country>
+                    <AllowNegative>false</AllowNegative>
+-->
+
+  <WebBusinessObjects>
+    <Facade Name="UltimateSoftware.Customs.LAZ1001.Facade">
+      <WebBusinessObject TypeName="UltimateSoftware.WebObjects.Customs.LAZ1001.EmpDebitTipConsentDataItem">
+        <GetMethod>GetEmpDebitTipConsentByKey</GetMethod>
+        <NewMethod>NewEmpDebitTipConsent</NewMethod>
+      </WebBusinessObject>
+    </Facade>
+  </WebBusinessObjects>
+</Process>

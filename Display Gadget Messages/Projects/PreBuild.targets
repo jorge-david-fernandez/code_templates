@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- https://thomasfreudenberg.com/archive/2012/11/21/dont-copy-my-referenced-assemblies/ -->
+    <!-- make all references non-private, so they won't be copied to the output folder -->
+    <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+        <ItemGroup>
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+        </ItemGroup>
+    </Target>
+
+    <!-- Illegal Projects -->
+    <Target Name="CheckIllegalOutputTypes" BeforeTargets="Compile">
+        <Message Text="CheckIllegalOutputTypes: '$(ProjectName)': '$(OutputType)'"/>
+
+        <Error
+            Condition="'$(OutputType)' == 'Exe' or '$(OutputType)' == 'Winexe'"
+            Text="Exe and Winexe projects are not allowed. Such projects are not consumed or otherwise used by the Web server." />
+    </Target>
+
+    <!-- Remove illegal items from output -->
+    <Target Name="RemoveIllegalItemsFromOutput"
+        DependsOnTargets="RemoveNoneFromOutput;RemoveCompileFromOutput;RemoveEmbeddedResourceFromOutput"
+        BeforeTargets="BeforeBuild" />
+
+    <Target Name="RemoveNoneFromOutput" >
+        <warning
+            Condition="'%(None.CopyToOutputDirectory)' == 'Always' or '%(None.CopyToOutputDirectory)' == 'PreserveNewest'"
+            Text="Changing metadata property CopyToOutputDirectory from %(None.CopyToOutputDirectory) to Never for @(None).
+Only items in the Content ItemGroup are allowed to be copied to the final output of a web project. If this file needs to be copied to a web project, change from %3CNone%3E to %3CContent%3E." />
+
+        <ItemGroup>
+            <None Condition="'%(None.CopyToOutputDirectory)' == 'Always' or '%(None.CopyToOutputDirectory)' == 'PreserveNewest'">
+                <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            </None>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="RemoveCompileFromOutput">
+        <warning
+            Condition="'%(Compile.CopyToOutputDirectory)' == 'Always' or '%(Compile.CopyToOutputDirectory)' == 'PreserveNewest'"
+            Text="Changing metadata property CopyToOutputDirectory from %(Compile.CopyToOutputDirectory) to Never for @(Compile).
+Only items in the Content ItemGroup are allowed to be copied to the final output of a web project. If this file needs to be copied to a web project, change from %3CCompile%3E to %3CContent%3E." />
+
+        <ItemGroup>
+            <Compile Condition="'%(Compile.CopyToOutputDirectory)' == 'Always' or '%(Compile.CopyToOutputDirectory)' == 'PreserveNewest'">
+                <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            </Compile>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="RemoveEmbeddedResourceFromOutput">
+        <warning
+            Condition="'%(EmbeddedResource.CopyToOutputDirectory)' == 'Always' or '%(EmbeddedResource.CopyToOutputDirectory)' == 'PreserveNewest'"
+            Text="Changing metadata property CopyToOutputDirectory from %(EmbeddedResource.CopyToOutputDirectory) to Never for @(EmbeddedResource).
+Only items in the Content ItemGroup are allowed to be copied to the final output of a web project. If this file needs to be copied to a web project, change from %3CEmbeddedResource%3E to %3CContent%3E." />
+
+        <ItemGroup>
+            <EmbeddedResource Condition="'%(EmbeddedResource.CopyToOutputDirectory)' == 'Always' or '%(EmbeddedResource.CopyToOutputDirectory)' == 'PreserveNewest'">
+                <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            </EmbeddedResource>
+        </ItemGroup>
+    </Target>
+
+    <!-- Stop app.config copy -->
+    <Target Name="StopAppConfigCopy" AfterTargets="PrepareForBuild">
+        <!-- 
+            PrepareForBuild is a MS Target which can be found in '$(MSBuildToolsPath)\Microsoft.CSharp.targets'.
+            This target sets the AppConfigWithTargetPath Item (among other things) which is then used by _CopyAppConfigFile to copy
+            $(AppConfig) (usually app.config) to $(ProjectName).dll.config.
+        -->
+        <warning
+            Condition="'@(AppConfigWithTargetPath)' != ''"
+            Text="Removing @(AppConfigWithTargetPath) from the AppConfigWithTargetPath item group. Web projects are not allowed to copy app.config files." />
+
+        <ItemGroup>
+            <AppConfigWithTargetPath
+                Condition="'@(AppConfigWithTargetPath)' != ''"
+                Remove="*" />
+        </ItemGroup>
+    </Target>
+</Project>
